@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font: 13px Helvetica, Arial;
+      }
+      form {
+        background: #000;
+        padding: 3px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+      }
+      form input {
+        border: 0;
+        padding: 10px;
+        width: 90%;
+        margin-right: 0.5%;
+      }
+      form button {
+        width: 9%;
+        background: rgb(130, 224, 255);
+        border: none;
+        padding: 10px;
+      }
+      #messages {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      #messages li {
+        padding: 5px 10px;
+      }
+      #messages li:nth-child(odd) {
+        background: #eee;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+      $(() => {
+        var socket = io();
+
+        $('form').submit((e) => {
+          // prevents page reloading
+          e.preventDefault();
+
+          //send data to all channel
+          socket.emit('chat', `${$('#uName').val()}: ${$('#inputMsg').val()}`);
+
+          //clear input messsage
+          $('#inputMsg').val('');
+          return false;
+        });
+
+        $('#joined').click((e) => {
+          e.preventDefault(); // prevents page reloading
+          const room = $('#jRoom').val();
+          const name = $('#uName').val();
+          console.log('username: ' + name + ' joined room : ' + room);
+          $('#messages').empty();
+          socket.emit('join', { name, room });
+        });
+
+        socket.on('chat', (data) => {
+          $('#messages').append($('<li>').text(data));
+        });
+      });
+    </script>
+    <div style="border: #000 solid 2px;">
+      <h2>Username: <input id="uName" /></h2>
+      <h2>
+        JoinedRoom: <input id="jRoom" /><button id="joined">joined</button>
+      </h2>
+    </div>
+    <div>
+      <ul id="messages"></ul>
+      <form action="">
+        <input id="inputMsg" autocomplete="off" /><button>Send</button>
+      </form>
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
