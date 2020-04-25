@@ -2,9 +2,9 @@
 
     This project is about chat application and the purpose of this project is to learn about
 
-    - websocket
-    - nodejs express
-    - redis
+- websocket
+- nodejs express
+- redis
 
 ## Command for run
 
@@ -16,7 +16,7 @@ $ docker-compose up -d
 
 ## Reference
 
-[socket io](https://socket.io/)
-[client redis node js](https://github.com/NodeRedis/node-redis)
-[docker image nodejs](https://hub.docker.com/_/node)
-[docker image redis](https://hub.docker.com/_/redis)
+- [socket io](https://socket.io/)
+- [client redis node js](https://github.com/NodeRedis/node-redis)
+- [docker image nodejs](https://hub.docker.com/_/node)
+- [docker image redis](https://hub.docker.com/_/redis)
