@@ -8,7 +8,7 @@
 
 ## Command for run
 
-# run nodejs on port localhost 3000 and redis on port 6379
+###### run nodejs on port localhost 3000 and redis on port 6379
 
 ```bash
 $ docker-compose up -d
